@@ -1,0 +1,53 @@
+.app {
+  padding-top: 20px;
+
+  button {
+    height: 30px;
+    min-width: 30px;
+    margin: 2px;
+    background-color: white;
+    font-weight: 700;
+  }
+  
+  .no-match, .partial-match, .match {
+    color: white;
+  }
+
+  .no-match {
+    background-color: gray;
+  }
+  
+  .partial-match {
+    background-color: orange;
+  }
+  
+  .match {
+    background-color: green;
+  }
+}
+
+.word {
+  display: flex;
+  justify-content: center;
+
+  > div {
+    height: 60px;
+    width: 60px;
+    font-size: 32px;
+    font-weight: 700;
+    border: solid 1px #000;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.keyboard {
+  margin: 20px 0;
+}
+
+.keyboard-line {
+  display: flex;
+  justify-content: center;
+}
