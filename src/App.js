@@ -107,6 +107,10 @@ const App = () => {
     }
   }
 
+  const handleSurrender = () => {
+    setInProgress(theWord)
+  }
+
   useEffect(() => {
     setNewWord(wordLength)
   }, [wordLength])
@@ -115,11 +119,17 @@ const App = () => {
     <div className={cx('app')}>
       <div className={cx('keyboard', 'keyboard-line')}>
         Word length:&nbsp;
-        {[...Array(6)].map((dummy, i) => (
+        {[...Array(12)].map((dummy, i) => (
           <button key={i} onClick={() => handleLengthChange(i + 3)}>
             {i + 3}
           </button>
         ))}
+      </div>
+
+      <div className={cx('keyboard-line', 'surrender')}>
+        <button onClick={() => handleSurrender()}>
+          I GIVE UP!!!
+        </button>
       </div>
       
       {evaluatedList.map((evaluatedWord, eIndex) => (
