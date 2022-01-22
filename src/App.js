@@ -62,6 +62,8 @@ const App = () => {
   const [evaluatedList, setEvaluatedList] = useState([])
   const [inProgress, setInProgress] = useState('')
   const [keyColors, setKeyColors] = useState({})
+  const [showHint, setShowHint] = useState()
+  const [possibles, setPossibles] = useState([])
 
   const setNewWord = newLength => {
     const pool = simpleWords.filter(word => word.length === newLength && word === word.toLowerCase())
@@ -74,6 +76,8 @@ const App = () => {
     setWordLength(newLength)
     setNewWord(newLength)
     setKeyColors({})
+    setPossibles([])
+    setShowHint()
   }
 
   const handleInProgressLetter = letter => {
@@ -104,6 +108,20 @@ const App = () => {
       setKeyColors(newKeyColors)
       setEvaluatedList([...evaluatedList, evaluation])
       setInProgress('')
+
+      const newEvals = [...evaluatedList, evaluation]
+      const possibles = allWords.filter(word => {
+        if (word.length === wordLength && word === word.toLowerCase()) {
+          return newEvals.every(thisEval => {
+            const evalWord = thisEval.map(({ letter }) => letter).join('')
+            const testEval = evaluateGuess(evalWord, word)
+            return JSON.stringify(thisEval.map(({ evalType }) => evalType)) ===
+                   JSON.stringify(testEval.map(({ evalType }) => evalType))
+          })
+        }
+      })
+
+      setPossibles(possibles)
     }
   }
 
@@ -168,6 +186,18 @@ const App = () => {
             ENTER
           </button>
         </div>
+      </div>
+
+      <div className={cx('hint')}>
+        <button onClick={() => setShowHint(!showHint)}>HINT!</button>
+
+        {showHint && (
+          <div className={cx('hint-words')}>
+            <ul>
+              {possibles.map(possible => <li key={possible}>{possible.toUpperCase()}</li>)}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
