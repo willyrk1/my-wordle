@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
+import history from 'history/browser'
+import queryString from 'query-string'
 import styles from './App.module.scss'
 import simpleWords from './simpleWords'
 import allWords from './allWords'
@@ -71,6 +73,10 @@ const App = () => {
   }
 
   const handleLengthChange = newLength => {
+    // Clear word query param.
+    const { word, ...newParams } = queryString.parse(history.location.search)
+    history.push({ search: queryString.stringify(newParams) })
+
     setEvaluatedList([])
     setInProgress('')
     setWordLength(newLength)
@@ -130,7 +136,13 @@ const App = () => {
   }
 
   useEffect(() => {
-    setNewWord(wordLength)
+    const wordParam = queryString.parse(history.location.search).word
+    if (wordParam) {
+      setTheWord(wordParam)
+    }
+    else {
+      setNewWord(wordLength)
+    }
   }, [wordLength])
 
   return (
