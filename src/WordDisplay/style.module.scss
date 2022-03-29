@@ -1,0 +1,33 @@
+.word {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > div {
+    height: 60px;
+    width: 60px;
+    font-size: 32px;
+    font-weight: 700;
+    border: solid 1px #000;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.no-match, .partial-match, .match {
+  color: white;
+}
+
+.no-match {
+  background-color: gray;
+}
+
+.partial-match {
+  background-color: orange;
+}
+
+.match {
+  background-color: green;
+}
